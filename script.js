@@ -29,7 +29,7 @@ const audioFiles = [
     "audio25.mp3",
     "audio26.mp3",
 
-    // Add more audio files as needed
+    
 ];
 
 let currentAudioIndex = 0;
@@ -65,7 +65,7 @@ function getRandomFont() {
         "Courier New, Courier, monospace",
         "Georgia, serif",
         "Comic Sans MS, cursive",
-        // Add more fonts as needed
+       
     ];
     return fonts[Math.floor(Math.random() * fonts.length)];
 }

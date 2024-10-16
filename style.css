@@ -6,12 +6,13 @@ body {
     align-items: center;
     justify-content: center;
     background: #0b1522;
-    font-family: 'Courier New', Courier, monospace; 
+    font-family: 'Courier New', Courier, monospace;
     position: relative;
 }
+
 .heart {
-    height: 70px;
-    width: 70px;
+    height: 100px;
+    width: 100px;
     background: #f20044;
     position: absolute;
     top: 50%;
@@ -22,29 +23,26 @@ body {
     z-index: 1;
 }
 
-.heart::before{
+.heart::before {
     content: " ";
     position: absolute;
-    height: 70px;
-    width: 70px;
+    height: 100px;
+    width: 100px;
     background: #f20044;
-    top:-50%;
+    top: -50%;
     border-radius: 50px;
     box-shadow: -10px -10px 90px #f20044;
-
-
 }
-.heart::after{
+
+.heart::after {
     content: " ";
     position: absolute;
-    height: 70px;
-    width: 70px;
+    height: 100px;
+    width: 100px;
     background: #f20044;
-    right:-50%;
+    right: -50%;
     border-radius: 50px;
     box-shadow: 10px 10px 90px #f20044;
-
-
 }
 
 @keyframes heart {
@@ -61,14 +59,41 @@ body {
 
 .quote-box {
     position: absolute;
-    background: rgba(255, 255, 255, 0.5);
-    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 40px 20px;
     border-radius: 10px;
     text-align: center;
-    font-size: 18px;
-    max-width: 80%;
+    font-size: 22px;
+    max-width: 500px;
     z-index: 2;
-    margin-top: 20px; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Times New Roman', serif;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    font-size: 30px;
+    color: #f20044;
+    cursor: pointer;
+    z-index: 3;
+    user-select: none;
+    transform: translateY(-50%);
+}
+
+#prevQuote {
+    left: 10%;
+}
+
+#nextQuote {
+    right: 10%;
+}
+
+.arrow:hover {
+    color: #ff8080;
 }
 
 @keyframes textAnimation {
@@ -83,8 +108,78 @@ body {
         color: #f20044;
     }
 }
+
 @media (max-width: 768px) {
     .quote-box {
-        font-size: 16px; 
+        font-size: 18px;
+        max-width: 80%;
+        padding: 20px;
+    }
+
+    .arrow {
+        font-size: 24px;
     }
 }
+
+.falling-heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #f20044;
+    top: -10%;
+    left: calc(10% + 80% * var(--random-position));
+    /* transform: rotate(45deg); */
+    animation: fall 5s linear infinite;
+    opacity: 0.8;
+}
+
+.falling-heart::before,
+.falling-heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #f20044;
+    border-radius: 50%;
+}
+
+.falling-heart::before {
+    top: -50%;
+    left: 0;
+}
+
+.falling-heart::after {
+    left: 50%;
+    top: 0;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100vh) rotate(-45deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(-45deg);
+    }
+}
+.neon-text {
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+    width: 100%;
+    font-size: 28px;
+    font-weight: bold; /* Make the text bold */
+    color: #fff; /* Base text color */
+    text-shadow: 
+        0 0 5px #ff007f,  /* Pink glow */
+        0 0 10px #ff007f, 
+        0 0 20px #ff007f, 
+        0 0 30px #00ff7f,  /* Green glow */
+        0 0 40px #00ff7f, 
+        0 0 50px #00ff7f, 
+        0 0 60px #007fff,  /* Blue glow */
+        0 0 70px #007fff, 
+        0 0 80px #007fff, 
+        0 0 90px #ff7f00;  /* Orange glow */
+}
+
+

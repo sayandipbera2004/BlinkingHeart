@@ -1,5 +1,9 @@
+
+
+
 const quoteBox = document.getElementById("quoteBox");
-const heart = document.querySelector(".heart");
+const prevQuoteButton = document.getElementById("prevQuote");
+const nextQuoteButton = document.getElementById("nextQuote");
 
 const audioFiles = [
     "audio1.mp3",
@@ -27,69 +31,75 @@ const audioFiles = [
     "audio23.mp3",
     "audio24.mp3",
     "audio25.mp3",
-    "audio26.mp3",
+    "audio26.mp3",/* add the rest */
+];
 
-    
+const quotes = [
+    "Love is not about how many days, months, or years you’ve been together. Love is about how much you love each other every single day.",
+    "You are the source of my joy, the center of my world, and the whole of my heart.",
+    "Every time I see you, I fall in love all over again.",
+    "The best thing to hold onto in life is each other.",
+    "You are my paradise and I would happily get lost in you forever.",
+    "I look at you and see the rest of my life in front of my eyes.",
+    "Being deeply loved by someone gives you strength, while loving someone deeply gives you courage.",
+    "I love you not only for what you are but for what I am when I am with you.",
+    "You make me complete. I love you so much, I didn’t know what love meant until I met you.",
+    "I could start a fire with what I feel for you.",
+    "When I follow my heart, it leads me to you.",
+    "I still fall in love with you every day!"
 ];
 
 let currentAudioIndex = 0;
+let currentQuoteIndex = 0;
 let backgroundMusic = new Audio();
 
-function playNextAudio() {
-    currentAudioIndex = (currentAudioIndex + 1) % audioFiles.length;
-    backgroundMusic.src = audioFiles[currentAudioIndex];
+function playAudio(index) {
+    backgroundMusic.src = audioFiles[index];
     backgroundMusic.play();
 }
 
-async function fetchRandomQuote() {
-    try {
-        const response = await fetch("https://api.quotable.io/random?tags=love");
-        const data = await response.json();
-        return {
-            quote: data.content,
-            font: getRandomFont(),
-        };
-    } catch (error) {
-        console.error("Error fetching quote:", error);
-        return {
-            quote: "Love is in the air!",
-            font: getRandomFont(),
-        };
-    }
+function changeQuote(index) {
+    quoteBox.innerText = quotes[index];
 }
 
 function getRandomFont() {
     const fonts = [
-        "Arial, sans-serif",
-        "Times New Roman, serif",
-        "Courier New, Courier, monospace",
-        "Georgia, serif",
-        "Comic Sans MS, cursive",
-       
+        "Arial, sans-serif", "Times New Roman, serif",
+        "Courier New, monospace", "Georgia, serif",
+        "Comic Sans MS, cursive"
     ];
     return fonts[Math.floor(Math.random() * fonts.length)];
 }
 
-async function updateQuote() {
-    const { quote, font } = await fetchRandomQuote();
-    quoteBox.innerText = quote;
-    quoteBox.style.fontFamily = font;
+function changeContent(direction) {
+    if (direction === 'next') {
+        currentAudioIndex = (currentAudioIndex + 1) % audioFiles.length;
+        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+    } else {
+        currentAudioIndex = (currentAudioIndex - 1 + audioFiles.length) % audioFiles.length;
+        currentQuoteIndex = (currentQuoteIndex - 1 + quotes.length) % quotes.length;
+    }
+
+    playAudio(currentAudioIndex);
+    changeQuote(currentQuoteIndex);
+    quoteBox.style.fontFamily = getRandomFont();
+}
+function createFallingHeart() {
+    const heart = document.createElement("div");
+    heart.className = "falling-heart";
+    heart.style.setProperty("--random-position", Math.random());
+    document.body.appendChild(heart);
+
+    // Remove heart from DOM after animation ends
+    heart.addEventListener("animationend", () => {
+        heart.remove();
+    });
 }
 
-heart.addEventListener("animationiteration", () => {
-    heart.classList.remove("animateHeart");
-    void heart.offsetWidth;
-    heart.classList.add("animateHeart");
-});
+// Generate falling hearts at random intervals
+setInterval(createFallingHeart, 1000); // Adjust timing for more or fewer hearts
+prevQuoteButton.addEventListener('click', () => changeContent('prev'));
+nextQuoteButton.addEventListener('click', () => changeContent('next'));
 
-setInterval(() => {
-    heart.classList.toggle("blinkHeart");
-}, 1000);
-
-updateQuote();
-playNextAudio();
-
-setInterval(() => {
-    updateQuote();
-    playNextAudio();
-}, 10000);
+// Initialize the first quote and audio
+changeContent('next');

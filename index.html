@@ -3,15 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart</title>
+    <title>Love Quotes Generator</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js" defer></script>
-    
 </head>
 <body>
+    <!-- Main big heart in the center -->
     <div class="heart"></div>
+
+    <!-- Quote box in the middle -->
     <div class="quote-box" id="quoteBox"></div>
+
+    <!-- Left arrow for previous quote -->
+    <div class="arrow" id="prevQuote">&#10094;</div>
+
+    <!-- Right arrow for next quote -->
+    <div class="arrow" id="nextQuote">&#10095;</div>
+
+    <!-- Falling hearts for the background fountain effect -->
+    <div class="falling-heart" style="--random-position: 0;"></div>
+    <div class="falling-heart" style="--random-position: 0.2;"></div>
+    <div class="falling-heart" style="--random-position: 0.4;"></div>
+    <div class="falling-heart" style="--random-position: 0.6;"></div>
+    <div class="falling-heart" style="--random-position: 0.8;"></div>
+    <div class="neon-text">
+        Love Quotes Generator by Sayandip Bera
+    </div>
+
+    <!-- Background music (hidden) -->
     <audio id="backgroundMusic" autoplay loop style="display: none;"></audio>
-   
 </body>
 </html>
